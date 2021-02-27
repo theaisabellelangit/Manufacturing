@@ -1,7 +1,10 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class TableGUI {
     private JFrame frame = new JFrame("Manufacturing System");
@@ -29,18 +32,33 @@ public class TableGUI {
                 frame.setVisible(false);
                 tableFrame.setVisible(true);
                 tableFrame.setSize(1000, 700);
-                String[] column = {"Entity No.", "Time(t)", "Event","Type","Q(t)","B(t)", "In queue", "In service","P", "N","∑WQ","WQ*", "∑TS", "TS*", "∫Q","Q*","∫Q"};
-                String [][] data = new String[20][30];
-                JTable table = new JTable(data, column);
-                tableFrame.add(table.getTableHeader(), BorderLayout.PAGE_START);
-                tableFrame.add(table, BorderLayout.CENTER);
+
+                Object [][] data = {};
+                Object [] columns = {"Entity No.", "Time(t)", "Event","Type","Q(t)","B(t)", "In queue", "In service","P", "N","∑WQ","WQ*", "∑TS", "TS*", "∫Q","Q*","∫Q"};
+
+                DefaultTableModel listTableModel;
+                listTableModel = new DefaultTableModel(data, columns);
+                int convert = Integer.parseInt(timeField.getText());
+
+
+                for (int i = 1; i < convert + 1 ; i++) {
+                    listTableModel.addRow(new Object[]{});
+                }
+
+                JTable listTable;
+                listTable = new JTable(listTableModel);
+                listTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                listTable.setCellEditor(null);
+                listTable.setBounds(37, 143, 450, 183);
+                tableFrame.add(listTable.getTableHeader(), BorderLayout.PAGE_START);
+                tableFrame.add(listTable, BorderLayout.CENTER);
                 tableFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                tableFrame.pack();
                 tableFrame.setLocationRelativeTo(null);
-                table.setVisible(true);
+
 
             }
         });
+
 
     }
 
